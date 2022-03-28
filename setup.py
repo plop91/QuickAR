@@ -5,10 +5,10 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="QuickAR",
-    version="0.0.1",
+    version="pre-alpha_0.0.1",
     author="Ian Sodersjerna",
     author_email="Ian@sodersjerna.com",
-    description="easy to implement AR-tag package for python",
+    description="Easy to implement AR-tag package for python based on opencv aruco library",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/plop91/QuickAR",
@@ -21,5 +21,6 @@ setuptools.setup(
     ],
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),
+    install_requires=['opencv-contrib-python'],
     python_requires=">=3.7",
 )

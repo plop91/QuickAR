@@ -1,8 +1,40 @@
 # QuickAR
-## Author 
-Ian Sodersjerna
-## GOAL
-Create an easy to implement AR-tag library for python
+![Python](https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white)
+![OpenCV](https://img.shields.io/badge/opencv-%23white.svg?style=for-the-badge&logo=opencv&logoColor=white)
+![PyCharm](https://img.shields.io/badge/pycharm-143?style=for-the-badge&logo=pycharm&logoColor=black&color=black&labelColor=green)
+![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)
+
+
+## Description
+
+Easy to implement AR-tag library for python based on opencv aruco library.
+* locate ar tag in image
+* inscribe image over ar tag
+* inscribe image between ar tags
+* get relitive positional information on ar tag
+* calibrate camera for above
+
+## Table of Contents 
+
+- [Usage](#usage)
+- [Credits](#credits)
+- [License](#license)
+
+## Usage
+
+Example code can be found under examples.
+
+## Credits
+
+[Ian Sodersjerna](https://github.com/plop91)
+
+## Tests
+
+Testing is not currently slated for this project.
+
+## License
+
+GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 
 ## Worklog:
 
