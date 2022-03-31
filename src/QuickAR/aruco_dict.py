@@ -22,6 +22,15 @@ ARUCO_DICT = {
 
 
 def get_aruco_dict(desired_aruco_dictionary):
+    """
+    Returns the dictionary corresponding to the given name.
+
+    args:
+        desired_aruco_dictionary: The name of the dictionary.
+
+    returns:
+    The dictionary corresponding to the given name.
+    """
     if ARUCO_DICT.get(desired_aruco_dictionary, None) is None:
         print("ArUCo tag type is not supported")
         exit(0)

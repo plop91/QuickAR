@@ -13,6 +13,17 @@ Worklog:
 
 
 async def draw_markers(frame, corners, ids):
+    """
+    Draws markers on frame.
+
+    args:
+        frame: frame to be drawn upon
+        corners: list of corners of markers
+        ids: list of ids of corners
+
+    returns:
+        frame: frame with markers drawn
+    """
     _frame = frame.copy()
     # Check that at least one ArUco marker was detected
     if len(corners) > 0:
@@ -52,6 +63,16 @@ async def draw_markers(frame, corners, ids):
 
 
 async def draw_axis_marker(frame, corners, matrix_coefficients, distortion_coefficients):
+    """
+    Draws axis on marker.
+    #NOTE: This function is not currently functional
+
+    args:
+        frame: frame to be drawn upon
+        corners: list of corners of markers
+        matrix_coefficients: matrix coefficients
+        distortion_coefficients: distortion coefficients
+    """
     for i in range(len(corners)):
         rvec, tvec, marker_points = cv2.aruco.estimatePoseSingleMarkers(corners[i],
                                                                         0.02,
@@ -65,10 +86,13 @@ async def image_over_marker(frame, corners, image):
     """
     Inscribe image over marker
 
-    :param frame: frame to be drawn upon
-    :param corners: list of corners to be inscribed upon
-    :param image: image to be drawn to frame
-    :return: inscribed frame
+    args:
+        frame: frame to be drawn upon
+        corners: list of corners to be inscribed upon
+        image: image to be drawn to frame
+
+    returns:
+        frame: frame with image inscribed
     """
     _frame = frame.copy()
     for bbox in corners:
@@ -85,11 +109,14 @@ async def image_between_markers(frame, corners, ids, image):
     Inscribe image between markers, corners are assigned via id in ascending order following the pattern top-left,
     top-right, bottom-right, bottom-left.
 
-    :param frame: frame to be drawn upon
-    :param corners: list of corners of markers, length must be multiple of 4
-    :param ids: list of ids of corners, length must be multiple of 4
-    :param image: image to be drawn to frame
-    :return: inscribed frame
+    args:
+        frame: frame to be drawn upon
+        corners: list of corners of markers, length must be multiple of 4
+        ids: list of ids of corners, length must be multiple of 4
+        image: image to be drawn to frame
+
+    returns:
+        frame: frame with image inscribed
     """
     if len(corners) < 4:
         return frame
@@ -113,13 +140,16 @@ async def apply_homography(frame, tl, tr, br, bl, image):
     """
     Applies homography to img.
 
-    :param frame: frame to be drawn on
-    :param tl: top left point of image
-    :param tr: top right point of image
-    :param br: bottom right point of image
-    :param bl: bottom left point of image
-    :param image: image to written over img
-    :return: img with homography image applied to it
+    args:
+        frame: frame to be drawn on
+        tl: top left point of image
+        tr: top right point of image
+        br: bottom right point of image
+        bl: bottom left point of image
+        image: image to written over frame
+
+    returns:
+        frame: frame with image inscribed
     """
     h, w, c = image.shape
     pts1 = np.array([tl, tr, br, bl])
