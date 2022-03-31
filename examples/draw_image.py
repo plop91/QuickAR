@@ -22,8 +22,7 @@ async def main():
     args = parser.parse_args()
 
     desired_aruco_dictionary = args.aruco_dictionary
-    detector = QuickAR.Detector(desired_aruco_dictionary)
-    renderer = QuickAR.Renderer()
+    aruco_dictionary = cv2.aruco.Dictionary_get(QuickAR.ARUCO_DICT[desired_aruco_dictionary])
 
     im_src = cv2.imread(args.image)
 
@@ -32,22 +31,43 @@ async def main():
         exit(0)
 
     # Start the video stream
-    cap = cv2.VideoCapture(0)
+    cam = cv2.VideoCapture(0)
 
-    while True:
-        ret, frame = cap.read()
+    # resize camera resolution:
+    # SD - 480p
+    # cam.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+    # cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+    # ---------------------------------------- #
+    # HD - 720p
+    # cam.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+    # cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+    # ---------------------------------------- #
+    # Full HD - 1080p
+    # cam.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+    # cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+    # ---------------------------------------- #
+    # 2K - 1440p
+    # cam.set(cv2.CAP_PROP_FRAME_WIDTH, 2560)
+    # cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 1440)
+    # ---------------------------------------- #
+    # 4K - 2160p
+    # cam.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)
+    # cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160)
+
+    while cam.isOpened():
+        ret, frame = cam.read()
 
         # Detect ArUco markers
-        (corners, ids, rejected) = await detector.detect(frame)
+        (corners, ids, rejected) = await QuickAR.detect(frame, aruco_dictionary)
 
         if len(corners) % 4 == 0:
-            between_frame = await renderer.image_between_markers(corners, ids, frame, im_src)
+            between_frame = await QuickAR.image_between_markers(frame, corners, ids, im_src)
         else:
             between_frame = frame
 
-        multi_image_frame = await renderer.image_over_marker(corners, frame, im_src)
+        multi_image_frame = await QuickAR.image_over_marker(frame, corners, im_src)
 
-        marker_frame = await detector.draw_markers(corners, frame, ids)
+        marker_frame = await QuickAR.draw_markers(frame, corners, ids)
 
         top = cv2.hconcat([frame, marker_frame])
         bottom = cv2.hconcat([multi_image_frame, between_frame])
@@ -61,7 +81,7 @@ async def main():
             break
 
     # Close down the video stream
-    cap.release()
+    cam.release()
     cv2.destroyAllWindows()
 
 

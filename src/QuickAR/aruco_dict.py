@@ -19,3 +19,10 @@ ARUCO_DICT = {
     "DICT_7X7_1000": cv2.aruco.DICT_7X7_1000,
     "DICT_ARUCO_ORIGINAL": cv2.aruco.DICT_ARUCO_ORIGINAL
 }
+
+
+def get_aruco_dict(desired_aruco_dictionary):
+    if ARUCO_DICT.get(desired_aruco_dictionary, None) is None:
+        print("ArUCo tag type is not supported")
+        exit(0)
+    return cv2.aruco.Dictionary_get(ARUCO_DICT[desired_aruco_dictionary])

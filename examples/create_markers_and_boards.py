@@ -23,14 +23,15 @@ async def main():
         os.mkdir("images")
 
     desired_aruco_dictionary = args.aruco_dictionary
+    aruco_dictionary = cv2.aruco.Dictionary_get(QuickAR.ARUCO_DICT[desired_aruco_dictionary])
+
     rows = []
     current_row = None
     for i in range(16):
 
         aruco_marker_id = i
-        output_filename = f"images/id{i}.png"
-        generator = QuickAR.MarkerGenerator(desired_aruco_dictionary)
-        marker = generator.generate_marker(aruco_marker_id)
+        output_filename = f"images/marker_id{i}.png"
+        marker = await QuickAR.generate_marker(aruco_dictionary, aruco_marker_id)
         cv2.imwrite(output_filename, marker)
         if current_row is None:
             current_row = marker
@@ -44,7 +45,17 @@ async def main():
             current_row = cv2.hconcat([current_row, marker])
 
     output = cv2.vconcat(rows)
-    cv2.imshow("ArUco Marker", output)
+    cv2.imshow("ArUco Markers", output)
+
+    board, board_img = await QuickAR.generate_grid_board(aruco_dictionary)
+    cv2.imwrite("images/board.png", board_img)
+    cv2.imshow("board_img", board_img)
+
+    charuco_board, charuco_board_img = await \
+        QuickAR.generate_charuco_board(aruco_dictionary)
+    cv2.imwrite("images/charuco_board.png", charuco_board_img)
+    cv2.imshow("charuco_board_img", charuco_board_img)
+
     cv2.waitKey(0)
 
 
