@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="QuickAR",
-    version="pre-alpha_0.0.1",
+    version="pre-alpha_0.0.2",
     author="Ian Sodersjerna",
     author_email="Ian@sodersjerna.com",
     description="Easy to implement AR-tag package for python based on opencv aruco library",
