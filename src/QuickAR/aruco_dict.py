@@ -1,4 +1,11 @@
 import cv2
+"""
+Project: QuickAR
+Title: aruco_dict.py
+Author: Ian Sodersjerna
+Created: 3/20/2022
+Description: This module contains the dictionary of the aruco markers and the functions to get aruco dictionaries.
+"""
 
 ARUCO_DICT = {
     "DICT_4X4_50": cv2.aruco.DICT_4X4_50,

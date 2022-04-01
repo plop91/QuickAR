@@ -22,7 +22,7 @@ Easy to implement AR-tag library for python based on opencv aruco library.
 
 ## Usage
 
-Example code can be found under examples.
+Example code can be found in examples directory and API documentation will be available soon.
 
 ## Credits
 
@@ -30,7 +30,7 @@ Example code can be found under examples.
 
 ## Tests
 
-Testing is not currently slated for this project.
+Testing is done with [unittest](https://docs.python.org/3/library/unittest.html).
 
 ## License
 

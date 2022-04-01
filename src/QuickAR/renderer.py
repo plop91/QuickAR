@@ -1,14 +1,11 @@
 import cv2
 import numpy as np
-
 """
+Project: QuickAR
 Title: renderer.py
 Author: Ian Sodersjerna
 Created: 3/20/2022
-
-Worklog: 
-
-3/20/2022:
+Description: This class is used to render images or markers to an image.
 """
 
 
@@ -27,6 +24,7 @@ async def draw_markers(frame, corners, ids):
     _frame = frame.copy()
     # Check that at least one ArUco marker was detected
     if len(corners) > 0:
+
         # Flatten the ArUco IDs list
         ids = ids.flatten()
 

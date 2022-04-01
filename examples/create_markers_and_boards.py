@@ -6,7 +6,11 @@ import QuickAR
 import argparse
 
 """
-
+Project: QuickAR
+Title: create_markers_and_boards.py
+Author: Ian Sodersjerna
+Created: 3/31/2022
+Description: This script creates a set of markers and boards for use with the QuickAR SDK.
 """
 
 

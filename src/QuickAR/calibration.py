@@ -1,14 +1,11 @@
 import cv2
 import pickle
-
 """
+Project: QuickAR
 Title: calibration.py
 Author: Ian Sodersjerna
 Created: 3/20/2022
-
-Worklog: 
-
-3/20/2022:
+Description: This file contains methods to calibrate a camera.
 """
 
 

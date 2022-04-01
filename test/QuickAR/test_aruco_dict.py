@@ -1,5 +1,12 @@
 import unittest
 import QuickAR
+"""
+Project: QuickAR
+Title: test_aruco_dict.py
+Author: Ian Sodersjerna
+Created: 3/31/2022
+Description: Test cases for the aruco_dict module.
+"""
 
 
 class TestArucoDict(unittest.TestCase):

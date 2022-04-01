@@ -1,14 +1,11 @@
 import cv2
 import numpy as np
-
 """
+Project: QuickAR
 Title: generator.py
 Author: Ian Sodersjerna
 Created: 3/20/2022
-
-Worklog: 
-
-3/20/2022:
+Description: This file contains the methods for generating ArUco markers and boards.
 """
 
 
@@ -26,7 +23,12 @@ async def generate_marker(aruco_dictionary, aruco_marker_id):
     return marker
 
 
-async def generate_grid_board(aruco_dictionary, x=5, y=7, length=1, separation=0.8, image_size=(600, 500)):
+async def generate_grid_board(aruco_dictionary,
+                              x=5,
+                              y=7,
+                              length=1,
+                              separation=0.8,
+                              image_size=(600, 500)):
     """
     Generates a grid board.
 
@@ -48,7 +50,11 @@ async def generate_grid_board(aruco_dictionary, x=5, y=7, length=1, separation=0
     return board, img
 
 
-async def generate_charuco_board(aruco_dictionary, x=5, y=7, square_length=0.04, marker_length=0.01,
+async def generate_charuco_board(aruco_dictionary,
+                                 x=5,
+                                 y=7,
+                                 square_length=0.04,
+                                 marker_length=0.01,
                                  image_size=(600, 500)):
     """
     Generates a charuco board.
