@@ -1,32 +1,45 @@
 # QuickAR
-![Python](https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white)
-![OpenCV](https://img.shields.io/badge/opencv-%23white.svg?style=for-the-badge&logo=opencv&logoColor=white)
-![PyCharm](https://img.shields.io/badge/pycharm-143?style=for-the-badge&logo=pycharm&logoColor=black&color=black&labelColor=green)
-![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)
+[![Python](https://img.shields.io/badge/Python-14354C?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![OpenCV](https://img.shields.io/badge/opencv-%23white.svg?style=for-the-badge&logo=opencv&logoColor=white)](https://opencv.org/)
+[![PyCharm](https://img.shields.io/badge/pycharm-143?style=for-the-badge&logo=pycharm&logoColor=black&color=black&labelColor=green)](https://www.jetbrains.com/pycharm/)
+[![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)](https://numpy.org/)
 
+![website](https://img.shields.io/website-up-down-green-red/https/plop91.github.io/QuickAR/)
+![license](https://img.shields.io/github/license/plop91/QuickAR.svg)
+![issues](https://img.shields.io/github/issues/plop91/QuickAR.svg)
+![pull_requests](https://img.shields.io/github/issues-pr/plop91/QuickAR.svg)
 
 ## Description
 
-Easy to implement AR-tag library for python based on opencv aruco library.
-* locate ar tag in image
-* inscribe image over ar tag
-* inscribe image between ar tags
-* get relitive positional information on ar tag
-* calibrate camera for above
+Easy to implement AR-tag library written in python based on opencv aruco library.
+* includes detection, pose estimation, and marker drawing.
+* includes image inscription over and between ar tags.
+* supports multiple markers and multiple camera.
+* includes calibration support.
+* supports localization of markers.
 
 ## Table of Contents 
 
+- [Installation](#installation)
 - [Usage](#usage)
 - [Credits](#credits)
 - [License](#license)
 
+## Installation
+
+installation will be done by pip, so you can install it by typing `pip install QuickAR` in the future
+
 ## Usage
 
-Example code can be found in examples directory and API documentation will be available soon.
+Example code can be found in examples directory and API documentation will be available.
 
 ## Credits
 
-[Ian Sodersjerna](https://github.com/plop91)
+[Ian Sodersjerna](https://github.com/plop91) [![plop91](https://img.shields.io/github/followers/plop91.svg?style=social&label=Follow&maxAge=2592000)](https://github.com/plop91)
+
+Support me on Paypal
+
+[![paypal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.com/donate/?business=K7XS9QJYJQH7C&no_recurring=1&currency_code=USD)
 
 ## Tests
 
@@ -35,31 +48,3 @@ Testing is done with [unittest](https://docs.python.org/3/library/unittest.html)
 ## License
 
 GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
-
-## Worklog:
-
-### 3/20/2022 : 
-
-#### Overview
-Created package structure, added detector, renderer, generate_marker and aruco_dict all with basic functions.
-#### Current State:
-Currently, successfully building, generate marker is functional, detector is functional but will occasionally detect 
-phantom objects particularly on glass, and renderer will render a saved image of a marker over the existing marker 
-however this functionality is not yet working correctly.
-#### Files/Functions created:
-* aruco_dict.py - used to initialize aruco dict
-  * N/A
-* detector.py (async)- used tolocate aruco markers 
-  * detect - takes a frame and returns found aruco tags
-  * draw_markers - draw markers on frame
-* generate_marker.py - used to generate aruco markers
-  * generate - greate a marker with  the given id
-* renderer.py - used to render images onto markers
-  * apply_homography - return homography information 
-#### Testing:
-Test files have been created but no tests have been written.
-##### Testing environment:
-* Windows 10 Desktop(high-end)
-* Python 3.7
-* Walfront 2k webcam
-* 2 inch markers of type DICT_ARUCO_ORIGINAL id's 1 and 2

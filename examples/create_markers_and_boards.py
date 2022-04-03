@@ -14,14 +14,7 @@ Description: This script creates a set of markers and boards for use with the Qu
 """
 
 
-async def main():
-    parser = argparse.ArgumentParser(description='Example of renderer functions')
-    parser.add_argument('--aruco_dictionary',
-                        type=str,
-                        default='DICT_ARUCO_ORIGINAL',
-                        help='aruco dictionary to be used')
-
-    args = parser.parse_args()
+async def main(args):
 
     if not os.path.exists("images"):
         os.mkdir("images")
@@ -55,8 +48,7 @@ async def main():
     cv2.imwrite("images/board.png", board_img)
     cv2.imshow("board_img", board_img)
 
-    charuco_board, charuco_board_img = await \
-        QuickAR.generate_charuco_board(aruco_dictionary)
+    charuco_board, charuco_board_img = await QuickAR.generate_charuco_board(aruco_dictionary)
     cv2.imwrite("images/charuco_board.png", charuco_board_img)
     cv2.imshow("charuco_board_img", charuco_board_img)
 
@@ -65,4 +57,11 @@ async def main():
 
 if __name__ == '__main__':
     print(__doc__)
-    asyncio.run(main())
+    parser = argparse.ArgumentParser(description='Example of renderer functions')
+    parser.add_argument('--aruco_dictionary',
+                        type=str,
+                        default='DICT_ARUCO_ORIGINAL',
+                        help='aruco dictionary to be used')
+
+    arguments = parser.parse_args()
+    asyncio.run(main(arguments))

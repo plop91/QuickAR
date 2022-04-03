@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+
 """
 Project: QuickAR
 Title: renderer.py
@@ -21,63 +22,77 @@ async def draw_markers(frame, corners, ids):
     returns:
         frame: frame with markers drawn
     """
-    _frame = frame.copy()
-    # Check that at least one ArUco marker was detected
-    if len(corners) > 0:
+    if frame is None or corners is None or ids is None:
+        return frame
 
-        # Flatten the ArUco IDs list
-        ids = ids.flatten()
+    _frame = cv2.aruco.drawDetectedMarkers(
+        image=frame,
+        corners=corners)
 
-        # Loop over the detected ArUco corners
-        for (marker_corner, marker_id) in zip(corners, ids):
-            # Extract the marker corners
-            corners = marker_corner.reshape((4, 2))
-            (top_left, top_right, bottom_right, bottom_left) = corners
-
-            # Convert the (x,y) coordinate pairs to integers
-            top_right = (int(top_right[0]), int(top_right[1]))
-            bottom_right = (int(bottom_right[0]), int(bottom_right[1]))
-            bottom_left = (int(bottom_left[0]), int(bottom_left[1]))
-            top_left = (int(top_left[0]), int(top_left[1]))
-
-            # Draw the bounding box of the ArUco detection
-            cv2.line(_frame, top_left, top_right, (0, 255, 0), 2)
-            cv2.line(_frame, top_right, bottom_right, (0, 255, 0), 2)
-            cv2.line(_frame, bottom_right, bottom_left, (0, 255, 0), 2)
-            cv2.line(_frame, bottom_left, top_left, (0, 255, 0), 2)
-
-            # Calculate and draw the center of the ArUco marker
-            center_x = int((top_left[0] + bottom_right[0]) / 2.0)
-            center_y = int((top_left[1] + bottom_right[1]) / 2.0)
-            cv2.circle(_frame, (center_x, center_y), 4, (0, 0, 255), -1)
-
-            # Draw the ArUco marker ID on the video frame
-            # The ID is always located at the top_left of the ArUco marker
-            cv2.putText(_frame, str(marker_id),
-                        (top_left[0], top_left[1] - 15),
-                        cv2.FONT_HERSHEY_SIMPLEX,
-                        0.5, (0, 255, 0), 2)
     return _frame
 
 
-async def draw_axis_marker(frame, corners, matrix_coefficients, distortion_coefficients):
+async def draw_ids_on_marker(frame, corners, ids):
+    """
+    Draws id on marker.
+
+    args:
+        frame: frame to be drawn upon
+        corners: list of corners of markers
+        ids: list of ids of corners
+
+    returns:
+        frame: frame with id inscribed
+    """
+    if frame is None or corners is None or ids is None:
+        return frame
+    elif len(ids) != len(corners):
+        raise ValueError("Length of ids and corners must be equal")
+    _frame = frame.copy()
+    for (_corner, _id) in zip(corners, ids):
+        _frame = await draw_text_on_marker(_frame, _corner, _id[0])
+    return _frame
+
+
+async def draw_text_on_marker(frame, corner, text):
+    if frame is None or corner is None or text is None:
+        return frame
+    _frame = frame.copy()
+
+    # Extract the marker corners
+    corners = corner.reshape((4, 2))
+    (top_left, top_right, bottom_right, bottom_left) = corners
+
+    # Convert the (x,y) coordinate pairs to integers
+    top_left = (int(top_left[0]), int(top_left[1]))
+
+    # Draw the ArUco marker ID on the video frame
+    # The ID is always located at the top_left of the ArUco marker
+    cv2.putText(_frame, str(text),
+                (top_left[0], top_left[1] - 15),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.5, (0, 255, 0), 2)
+    return _frame
+
+
+async def draw_axis_marker(frame, rvec, tvec, matrix_coefficients, distortion_coefficients):
     """
     Draws axis on marker.
     #NOTE: This function is not currently functional
 
     args:
         frame: frame to be drawn upon
-        corners: list of corners of markers
+        rvec: rotation vector
+        tvec: translation vector
         matrix_coefficients: matrix coefficients
         distortion_coefficients: distortion coefficients
     """
-    for i in range(len(corners)):
-        rvec, tvec, marker_points = cv2.aruco.estimatePoseSingleMarkers(corners[i],
-                                                                        0.02,
-                                                                        matrix_coefficients,
-                                                                        distortion_coefficients)
-        (rvec - tvec).any()  # get rid of that nasty numpy value array error
-        cv2.aruco.drawAxis(frame, matrix_coefficients, distortion_coefficients, rvec, tvec, 0.01)  # Draw axis
+    if rvec is None or tvec is None or matrix_coefficients is None or distortion_coefficients is None:
+        print("test")
+        return frame
+    for i in range(len(rvec)):
+        _frame = cv2.aruco.drawAxis(frame, matrix_coefficients, distortion_coefficients, rvec[i], tvec[i], 0.01)
+    return _frame
 
 
 async def image_over_marker(frame, corners, image):

@@ -1,4 +1,5 @@
 import cv2
+
 """
 Project: QuickAR
 Title: aruco_dict.py
@@ -8,6 +9,7 @@ Description: This module contains the dictionary of the aruco markers and the fu
 """
 
 ARUCO_DICT = {
+    "default": cv2.aruco.DICT_ARUCO_ORIGINAL,
     "DICT_4X4_50": cv2.aruco.DICT_4X4_50,
     "DICT_4X4_100": cv2.aruco.DICT_4X4_100,
     "DICT_4X4_250": cv2.aruco.DICT_4X4_250,
@@ -42,3 +44,13 @@ def get_aruco_dict(desired_aruco_dictionary):
         print("ArUCo tag type is not supported")
         exit(0)
     return cv2.aruco.Dictionary_get(ARUCO_DICT[desired_aruco_dictionary])
+
+
+def get_aruco_parameters():
+    """
+    Returns the parameters for aruco.
+
+    returns:
+    The parameters for aruco.
+    """
+    return cv2.aruco.DetectorParameters_create()

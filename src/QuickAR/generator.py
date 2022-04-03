@@ -27,8 +27,8 @@ async def generate_grid_board(aruco_dictionary,
                               x=5,
                               y=7,
                               length=1,
-                              separation=0.8,
-                              image_size=(600, 500)):
+                              separation=0.5,
+                              image_size=(850, 1100)):
     """
     Generates a grid board.
 
@@ -54,8 +54,8 @@ async def generate_charuco_board(aruco_dictionary,
                                  x=5,
                                  y=7,
                                  square_length=0.04,
-                                 marker_length=0.01,
-                                 image_size=(600, 500)):
+                                 marker_length=0.02,
+                                 image_size=(850, 1100)):
     """
     Generates a charuco board.
 

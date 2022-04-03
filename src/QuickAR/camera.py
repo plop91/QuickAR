@@ -20,7 +20,11 @@ CAMERA_RESOLUTIONS = {
     "1080": (1920, 1080),
     "1440": (2560, 1440),
     "2160": (3840, 2160),
-
+    "sd": (640, 480),
+    "hd": (1280, 720),
+    "HD": (1920, 1080),
+    "2k": (2560, 1440),
+    "4k": (3840, 2160),
 }
 
 
@@ -69,33 +73,6 @@ class Camera:
         This function is used to close the camera when the object is deleted.
         """
         self.close()
-
-    @staticmethod
-    def convert_to_gray(frame):
-        """
-        This function is used to convert the frame to gray.
-
-        args:
-            frame: The frame to convert to gray.
-
-        returns:
-            The frame in grayscale.
-        """
-        return cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-    @staticmethod
-    def convert_resolution(frame, resolution=CAMERA_RESOLUTIONS["default"]):
-        """
-        This function is used to convert a resolution to a tuple.
-
-        args:
-            frame: The frame to convert.c
-            resolution: The resolution to convert.
-
-        returns:
-            The frame in the specified resolution.
-        """
-        return cv2.resize(frame, resolution)
 
     def is_opened(self):
         """
